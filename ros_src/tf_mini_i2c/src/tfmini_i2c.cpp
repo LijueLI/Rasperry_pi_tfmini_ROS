@@ -21,7 +21,7 @@ namespace benewake{
 
 	bool TFmini_i2c::checkSum(unsigned char *_buf, int size){
 		int sum = 0;
-		for(int i = 0; i < size-1; i++){
+		for(int i = 0; i < size-1; ++i){
 			sum += (int)_buf[i];
 		}
 		return static_cast<unsigned char>(sum) == _buf[size-1];
@@ -29,10 +29,10 @@ namespace benewake{
 
 	void TFmini_i2c::caculateChecksum(unsigned char *_buf, tfminiplus_packet_leagth_t size){
 		int sum = 0;
-		for(int i = 0; i < size-1; i++){
+		for(int i = 0; i < size-1; ++i){
 			sum += (int)_buf[i];
 		}
-		_buf[size-1] = (unsigned char)sum;
+		_buf[size-1] = static_cast<unsigned char>(sum);
 #ifdef DEBUG
 		printf("%02x\n", sum);
 		printf("%02x\n", _buf[size-1]);
