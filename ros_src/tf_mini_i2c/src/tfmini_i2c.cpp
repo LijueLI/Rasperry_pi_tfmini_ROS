@@ -24,6 +24,9 @@ namespace benewake{
 		for(int i = 0; i < size-1; ++i){
 			sum += (int)_buf[i];
 		}
+#ifdef DEBUG
+		printf("%02x\n", static_cast<unsigned char>(sum));
+#endif
 		return static_cast<unsigned char>(sum) == _buf[size-1];
 	}
 
@@ -55,16 +58,16 @@ namespace benewake{
 			return false;
 		}
 		else{
-			if(!checkSum(_buf, TFMINI_PLUS_PACK_LENGTH_DATA_RESPONSE)){
-				ROS_ERROR_STREAM("Data CheckSum Failed!");
-				return false;
-			}
 #ifdef DEBUG
 			for(int i = 0; i < 9; i++){
 				printf("%02x ", _buf[i]);
 			}
 			printf("\n");
 #endif
+			if(!checkSum(_buf, TFMINI_PLUS_PACK_LENGTH_DATA_RESPONSE)){
+				ROS_ERROR_STREAM("Data CheckSum Failed!");
+				return false;
+			}
 			return true;
 		}
 	}
